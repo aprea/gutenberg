@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { ifViewportMatches } from '@wordpress/viewport';
+import { useViewportMatch } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -10,6 +10,11 @@ import BlockMover from '../block-mover';
 import VisualEditorInserter from '../inserter';
 
 function BlockMobileToolbar( { clientId, moverDirection } ) {
+	const isMobile = useViewportMatch( '< small' );
+	if ( ! isMobile ) {
+		return null;
+	}
+
 	return (
 		<div className="editor-block-list__block-mobile-toolbar block-editor-block-list__block-mobile-toolbar">
 			<VisualEditorInserter />
@@ -18,4 +23,4 @@ function BlockMobileToolbar( { clientId, moverDirection } ) {
 	);
 }
 
-export default ifViewportMatches( '< small' )( BlockMobileToolbar );
+export default BlockMobileToolbar;
